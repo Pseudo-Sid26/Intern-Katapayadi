@@ -3,10 +3,10 @@ import { Gamepad2 } from 'lucide-react';
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 
-const puzzles = {
-    '1': { id: '1', question: 'This is a sample question for the self-quizzing mode. What is 2+2?', solution: '4', solutionWord: 'Four' },
-    '2': { id: '2', question: 'Another sample question. What is the capital of France?', solution: 'Paris', solutionWord: 'Paris' },
-    '3': { id: '3', question: 'This is a Katapayadi related question. The first three syllables of his name in Sanskrit (कृ ष् ण) correspond to what number in the Katapayadi system?', solution: '56', solutionWord: 'Krishna' },
+const puzzles: Record<string, { id: string; question: string; options: string[], correctAnswer: string; solutionWord: string }> = {
+    '1': { id: '1', question: 'This is a sample question for the self-quizzing mode. What is 2+2?', options: ['2', '3', '4', '5'], correctAnswer: '4', solutionWord: 'Four' },
+    '2': { id: '2', question: 'Another sample question. What is the capital of France?', options: ['London', 'Berlin', 'Paris', 'Madrid'], correctAnswer: 'Paris', solutionWord: 'Paris' },
+    '3': { id: '3', question: 'This is a Katapayadi related question. The first three syllables of his name in Sanskrit (कृ ष् ण) correspond to what number in the Katapayadi system?', options: ['56', '65', '46', '64'], correctAnswer: '56', solutionWord: 'Krishna' },
 }
 
 // Since we don't have routing for this page yet, we'll just use a default puzzle.
