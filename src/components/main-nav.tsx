@@ -5,12 +5,12 @@ import { usePathname } from 'next/navigation';
 
 import { Icons } from '@/components/icons';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
+import { Trophy, User } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Game Modes', icon: Icons.home },
-  { href: '/dynasties', label: 'Dynasty Ledger', icon: Icons.dynasties },
-  { href: '/artifacts', label: 'Artifact Vault', icon: Icons.artifacts },
-  { href: '/scan', label: 'Scan Fragment', icon: Icons.scan },
+  { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+  { href: '/profile', label: 'Profile', icon: User },
 ];
 
 export function MainNav() {
