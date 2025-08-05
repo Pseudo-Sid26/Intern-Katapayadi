@@ -5,11 +5,14 @@ import { usePathname } from 'next/navigation';
 
 import { Icons } from '@/components/icons';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { Trophy, User } from 'lucide-react';
+import { Gem, ScanQrCode, Swords, Trophy, User } from 'lucide-react';
 
 const navItems = [
-  { href: '/', label: 'Game Modes', icon: Icons.home },
-  { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+  { href: '/', label: 'Home', icon: Icons.home },
+  { href: '/puzzles/1', label: 'Puzzles', icon: Swords },
+  { href: '/dynasties', label: 'Dynasty Ledger', icon: Trophy },
+  { href: '/artifacts', label: 'Artifact Vault', icon: Gem },
+  { href: '/scan', label: 'Scan Fragment', icon: ScanQrCode },
   { href: '/profile', label: 'Profile', icon: User },
 ];
 
@@ -20,11 +23,12 @@ export function MainNav() {
     <SidebarMenu>
       {navItems.map((item) => {
         const Icon = item.icon;
+        const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
         return (
           <SidebarMenuItem key={item.href}>
             <SidebarMenuButton
               asChild
-              isActive={pathname === item.href}
+              isActive={isActive}
               tooltip={{ children: item.label }}
               className="justify-start"
             >

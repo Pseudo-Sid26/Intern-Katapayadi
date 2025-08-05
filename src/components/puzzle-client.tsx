@@ -7,12 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { generateOracleHint } from '@/ai/flows/oracle-hint-generator';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Lightbulb, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 const formSchema = z.object({
   answer: z.string().min(1, { message: 'An answer is required.' }),
@@ -43,7 +44,7 @@ export function PuzzleClient({ puzzle }: PuzzleClientProps) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values.answer.trim() === puzzle.solution) {
-      setFeedback({ type: 'success', message: 'Correct! You have solved the riddle.' });
+      setFeedback({ type: 'success', message: `Correct! The solution word is "${puzzle.solutionWord}". You have solved the riddle.` });
     } else {
       setFeedback({ type: 'error', message: 'Not quite. The ancients demand precision. Try again!' });
     }
@@ -78,45 +79,56 @@ export function PuzzleClient({ puzzle }: PuzzleClientProps) {
               name="answer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Your Answer</FormLabel>
+                  <FormLabel className="font-headline text-lg">Your Answer</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the numerical answer" {...field} disabled={feedback?.type === 'success'} />
+                    <Input 
+                      placeholder="Enter the numerical answer" 
+                      {...field} 
+                      disabled={feedback?.type === 'success'}
+                      className="text-lg py-6"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             {feedback && (
-              <Alert variant={feedback.type === 'success' ? 'default' : 'destructive'}>
+              <Alert variant={feedback.type === 'success' ? 'default' : 'destructive'} className="bg-opacity-20">
                 {feedback.type === 'success' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
                 <AlertTitle>{feedback.type === 'success' ? 'Success!' : 'Incorrect'}</AlertTitle>
                 <AlertDescription>{feedback.message}</AlertDescription>
               </Alert>
             )}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Button type="submit" className="flex-1" disabled={feedback?.type === 'success'}>Submit Answer</Button>
+            
+            <Separator className="my-8" />
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button type="submit" size="lg" className="flex-1" disabled={feedback?.type === 'success'}>Submit Answer</Button>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button type="button" variant="outline" className="flex-1" onClick={getHint}>
+                  <Button type="button" size="lg" variant="outline" className="flex-1" onClick={getHint}>
                     <Lightbulb className="mr-2 h-4 w-4" />
                     Consult the Oracle
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle className="font-headline flex items-center gap-2">
+                    <DialogTitle className="font-headline flex items-center gap-2 text-2xl">
                       <Lightbulb className="h-6 w-6 text-primary" />
                       The Oracle Speaks
                     </DialogTitle>
+                    <DialogDescription>
+                      The Oracle offers a riddle to guide you. Answering it may reveal a clue to the puzzle's solution word.
+                    </DialogDescription>
                   </DialogHeader>
-                  <div className="py-4">
+                  <div className="py-4 min-h-[10rem] flex items-center justify-center">
                     {isHintLoading && (
-                      <div className="flex items-center justify-center h-24">
+                      <div className="flex flex-col items-center justify-center h-24 gap-4">
                         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                        <p className="ml-4">The Oracle is consulting the cosmos...</p>
+                        <p className="text-muted-foreground">The Oracle is consulting the cosmos...</p>
                       </div>
                     )}
-                    {hint && <p className="text-lg italic text-foreground/90">{hint}</p>}
+                    {hint && <p className="text-xl italic text-center text-foreground/90">"{hint}"</p>}
                   </div>
                 </DialogContent>
               </Dialog>
