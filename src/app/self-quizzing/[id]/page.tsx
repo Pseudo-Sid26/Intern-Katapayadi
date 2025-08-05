@@ -3,10 +3,10 @@ import { Gamepad2 } from 'lucide-react';
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 
-const puzzles: Record<string, { id: string; question: string; solution: string; solutionWord: string }> = {
-    '1': { id: '1', question: 'This is a sample question for the self-quizzing mode. What is 2+2?', solution: '4', solutionWord: 'Four' },
-    '2': { id: '2', question: 'Another sample question. What is the capital of France?', solution: 'Paris', solutionWord: 'Paris' },
-    '3': { id: '3', question: 'This is a Katapayadi related question. The first three syllables of his name in Sanskrit (कृ ष् ण) correspond to what number in the Katapayadi system?', solution: '56', solutionWord: 'Krishna' },
+const puzzles: Record<string, { id: string; question: string; options: string[], correctAnswer: string; solutionWord: string }> = {
+    '1': { id: '1', question: 'Which dynasty was responsible for the construction of the Ajanta Caves?', options: ['Maurya', 'Gupta', 'Chola', 'Mughal'], correctAnswer: 'Gupta', solutionWord: 'Gupta' },
+    '2': { id: '2', question: 'What is the capital of the Mauryan Empire?', options: ['Pataliputra', 'Taxila', 'Ujjain', 'Varanasi'], correctAnswer: 'Pataliputra', solutionWord: 'Pataliputra' },
+    '3': { id: '3', question: 'The number for "na" is 0 and "ya" is 1. In the Katapayadi system, what number does "naya" represent when read from right to left?', options: ['10', '01', '1', '11'], correctAnswer: '10', solutionWord: 'Ten' },
 }
 
 export default function SelfQuizzingPage({ params }: { params: { id: string } }) {
