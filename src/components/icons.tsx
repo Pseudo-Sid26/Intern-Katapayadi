@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-import { Landmark, Users, Gem, Swords, ScanQrCode, Trophy, User } from 'lucide-react'
+import { Landmark, Users, Gem, Swords, ScanQrCode, Trophy, User, Gamepad2, BrainCircuit, BarChart, BookOpen } from 'lucide-react'
 
 export const Icons = {
   logo: (props: SVGProps<SVGSVGElement>) => (
@@ -9,10 +9,14 @@ export const Icons = {
       <path d="M2 12l10 5 10-5"></path>
     </svg>
   ),
-  leaderboard: Trophy,
+  leaderboard: BarChart,
   profile: User,
   home: Landmark,
   puzzle: Swords,
   artifacts: Gem,
   scan: ScanQrCode,
+  selfQuizzing: Gamepad2,
+  multiplayer: Users,
+  brainEnhancement: BrainCircuit,
+  encodingCharts: BookOpen,
 };

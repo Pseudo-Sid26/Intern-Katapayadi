@@ -1,32 +1,44 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Gem, Swords, Trophy, ScanQrCode } from 'lucide-react';
+import { BrainCircuit, Users, Gamepad2, BarChart, BookOpen, User } from 'lucide-react';
 
 const features = [
   {
-    title: 'Puzzle Interface',
-    description: 'Engage with Katapayadi puzzles, test your knowledge, and get feedback on your answers.',
-    link: '/puzzles/1',
-    icon: Swords,
+    title: 'Self Quizzing',
+    description: 'Test your knowledge on various subjects with timed quizzes and Katapayadi challenges.',
+    link: '/self-quizzing',
+    icon: Gamepad2,
   },
   {
-    title: 'Dynasty Ledger',
-    description: 'Track the collective scores of different Indian dynasties on a global leaderboard.',
-    link: '/dynasties',
-    icon: Trophy,
+    title: 'Multiplayer',
+    description: 'Challenge friends or other players in real-time quiz battles and climb the ranks.',
+    link: '/multiplayer',
+    icon: Users,
   },
   {
-    title: 'Artifact Vault',
-    description: 'Explore a personal gallery of 3D models of historical artifacts you have collected.',
-    link: '/artifacts',
-    icon: Gem,
+    title: 'Brain Enhancement',
+    description: 'Sharpen your mind with memory games, logic puzzles, and symbol decoding.',
+    link: '/brain-enhancement',
+    icon: BrainCircuit,
   },
   {
-    title: 'Map Scanner',
-    description: 'Scan QR codes on physical map fragments to unlock new digital puzzles and content.',
-    link: '/scan',
-    icon: ScanQrCode,
+    title: 'Leaderboard',
+    description: 'See how you stack up against other players. Filter by score, age, and category.',
+    link: '/leaderboard',
+    icon: BarChart,
+  },
+  {
+    title: 'Encoding Charts',
+    description: 'Learn the Katapayadi system with interactive visual charts and examples.',
+    link: '/encoding-charts',
+    icon: BookOpen,
+  },
+  {
+    title: 'Your Profile',
+    description: 'View your progress, including scores, badges, streaks, and game history.',
+    link: '/profile',
+    icon: User,
   },
 ];
 
@@ -34,14 +46,14 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <header className="text-center mb-12">
-        <h1 className="font-headline text-4xl md:text-6xl font-bold mb-4 text-primary">Indi-Puzzler</h1>
+        <h1 className="font-headline text-4xl md:text-6xl font-bold mb-4 text-primary">Katapayadi Detectives</h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          An epic puzzle adventure through the rich history and culture of ancient India. Embark on a journey of discovery, unlock ancient secrets, and claim glory for your dynasty.
+          A gamified educational platform to learn, compete, and enhance your skills with a touch of Indian culture.
         </p>
       </header>
 
       <main>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature) => (
             <Card key={feature.title} className="flex flex-col hover:shadow-xl transition-shadow duration-300 bg-card/80 backdrop-blur-sm">
               <CardHeader>

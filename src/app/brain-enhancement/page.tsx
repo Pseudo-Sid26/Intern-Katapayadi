@@ -1,26 +1,24 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users } from 'lucide-react';
+import { BrainCircuit } from 'lucide-react';
 
-export default function MultiplayerPage() {
+export default function BrainEnhancementPage() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <header className="mb-8">
         <h1 className="font-headline text-4xl font-bold flex items-center gap-4">
-          <Users className="h-10 w-10 text-primary" />
-          Multiplayer
+          <BrainCircuit className="h-10 w-10 text-primary" />
+          Brain Enhancement
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Challenge other players in real-time!
+          Engage in puzzles and games designed to boost your cognitive skills.
         </p>
       </header>
       <Card className="bg-card/80 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle>Game Lobby</CardTitle>
+            <CardTitle>Mini-Games</CardTitle>
         </CardHeader>
         <CardContent>
-            <p>This is where the multiplayer lobby will be. Players can find matches here.</p>
+            <p>This page will host various brain-training mini-games like memory matching and logic puzzles.</p>
         </CardContent>
       </Card>
     </div>

@@ -5,14 +5,15 @@ import { usePathname } from 'next/navigation';
 
 import { Icons } from '@/components/icons';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { Gem, ScanQrCode, Swords, Trophy, User } from 'lucide-react';
+import { BarChart, BrainCircuit, Gamepad2, Users, BookOpen, User } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Home', icon: Icons.home },
-  { href: '/puzzles/1', label: 'Puzzles', icon: Swords },
-  { href: '/dynasties', label: 'Dynasty Ledger', icon: Trophy },
-  { href: '/artifacts', label: 'Artifact Vault', icon: Gem },
-  { href: '/scan', label: 'Scan Fragment', icon: ScanQrCode },
+  { href: '/self-quizzing', label: 'Self Quizzing', icon: Gamepad2 },
+  { href: '/multiplayer', label: 'Multiplayer', icon: Users },
+  { href: '/brain-enhancement', label: 'Brain Enhancement', icon: BrainCircuit },
+  { href: '/leaderboard', label: 'Leaderboard', icon: BarChart },
+  { href: '/encoding-charts', label: 'Encoding Charts', icon: BookOpen },
   { href: '/profile', label: 'Profile', icon: User },
 ];
 

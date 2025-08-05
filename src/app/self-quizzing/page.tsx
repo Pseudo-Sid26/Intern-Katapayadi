@@ -1,5 +1,7 @@
 import { PuzzleClient } from "@/components/puzzle-client";
 import { Gamepad2 } from 'lucide-react';
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 
 const puzzles = {
     '1': { id: '1', question: 'This is a sample question for the self-quizzing mode. What is 2+2?', solution: '4', solutionWord: 'Four' },
@@ -7,8 +9,10 @@ const puzzles = {
     '3': { id: '3', question: 'This is a Katapayadi related question. The first three syllables of his name in Sanskrit (कृ ष् ण) correspond to what number in the Katapayadi system?', solution: '56', solutionWord: 'Krishna' },
 }
 
-export default function SelfQuizzingPage({ params }: { params: { id: string } }) {
-  const puzzle = puzzles[params.id as keyof typeof puzzles] || puzzles['1'];
+// Since we don't have routing for this page yet, we'll just use a default puzzle.
+// This would be replaced with dynamic routes like /self-quizzing/[id]
+export default function SelfQuizzingPage() {
+  const puzzle = puzzles['1'];
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -22,6 +26,11 @@ export default function SelfQuizzingPage({ params }: { params: { id: string } })
         </p>
       </header>
       <PuzzleClient puzzle={puzzle} />
+        <div className="mt-4 flex justify-center gap-4">
+            <Button asChild>
+                <Link href="/self-quizzing/2">Next Question</Link>
+            </Button>
+        </div>
     </div>
   );
 }

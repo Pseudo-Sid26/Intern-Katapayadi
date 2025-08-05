@@ -18,6 +18,35 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/puzzles',
+        destination: '/self-quizzing/1',
+        permanent: true,
+      },
+      {
+        source: '/puzzles/1',
+        destination: '/self-quizzing/1',
+        permanent: true,
+      },
+       {
+        source: '/dynasties',
+        destination: '/leaderboard',
+        permanent: true,
+      },
+      {
+        source: '/artifacts',
+        destination: '/encoding-charts',
+        permanent: true,
+      },
+      {
+        source: '/scan',
+        destination: '/multiplayer',
+        permanent: true,
+      }
+    ]
+  },
 };
 
 export default nextConfig;

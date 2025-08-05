@@ -12,8 +12,8 @@ import { SiteHeader } from "@/components/site-header";
 import { MainNav } from "@/components/main-nav";
 
 export const metadata: Metadata = {
-  title: 'Indi-Puzzler',
-  description: 'A puzzle adventure through ancient India.',
+  title: 'Katapayadi Detectives',
+  description: 'A gamified learning adventure through ancient India.',
 };
 
 export default function RootLayout({
