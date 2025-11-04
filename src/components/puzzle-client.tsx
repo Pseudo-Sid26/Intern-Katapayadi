@@ -1,7 +1,6 @@
-'use client';
-
 import { useState, useEffect } from 'react';
-import { generateOracleHint } from '@/ai/flows/oracle-hint-generator';
+// Oracle hint generation disabled for standard React app
+// import { generateOracleHint } from '@/ai/flows/oracle-hint-generator';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,53 +21,63 @@ type Puzzle = {
 
 type PuzzleClientProps = {
   puzzle: Puzzle;
+  onNextQuestion?: () => void;
 };
 
 const QUIZ_DURATION = 30; // 30 seconds
 
-export function PuzzleClient({ puzzle }: PuzzleClientProps) {
+export function PuzzleClient({ puzzle, onNextQuestion }: PuzzleClientProps) {
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [hint, setHint] = useState<string | null>(null);
   const [isHintLoading, setIsHintLoading] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(QUIZ_DURATION);
   const [isTimeUp, setIsTimeUp] = useState(false);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
 
   const isQuizOver = feedback !== null || isTimeUp;
 
   useEffect(() => {
-    // Reset state when puzzle changes
+    // Reset all state immediately when puzzle changes
     setFeedback(null);
     setSelectedAnswer(null);
     setHint(null);
     setTimeLeft(QUIZ_DURATION);
     setIsTimeUp(false);
     
+    // Start new timer for this puzzle
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
           setIsTimeUp(true);
-          setFeedback({ type: 'error', message: "Time's up! The correct answer was " + puzzle.correctAnswer });
+          setFeedback({ 
+            type: 'error', 
+            message: `Time's up! The correct answer was "${puzzle.correctAnswer}"` 
+          });
           return 0;
         }
         return prevTime - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, [puzzle]);
+    setTimerId(timer);
 
-  useEffect(() => {
-    if (isQuizOver) {
-      // Stop the timer
-      const newTimeLeft = timeLeft;
-      setTimeLeft(newTimeLeft);
-    }
-  }, [isQuizOver, timeLeft]);
+    // Cleanup timer when puzzle changes or component unmounts
+    return () => {
+      clearInterval(timer);
+      setTimerId(null);
+    };
+  }, [puzzle.id, puzzle.correctAnswer]); // Dependencies ensure fresh timer when puzzle changes
 
   function handleAnswerClick(answer: string) {
     if (isQuizOver) return;
+    
+    // Stop the timer immediately when answer is clicked
+    if (timerId) {
+      clearInterval(timerId);
+      setTimerId(null);
+    }
     
     setSelectedAnswer(answer);
     if (answer === puzzle.correctAnswer) {
@@ -78,13 +87,21 @@ export function PuzzleClient({ puzzle }: PuzzleClientProps) {
     }
   }
 
+  function handleNextQuestion() {
+    if (onNextQuestion) {
+      onNextQuestion();
+    }
+  }
+
   async function getHint() {
     if (hint) return;
     setIsHintLoading(true);
     setHint(null);
     try {
-      const result = await generateOracleHint({ puzzleSolution: puzzle.solutionWord });
-      setHint(result.hint);
+      // Oracle hint generation disabled for standard React app
+      // const result = await generateOracleHint({ puzzleSolution: puzzle.solutionWord });
+      // setHint(result.hint);
+      setHint('The Oracle is resting. This feature will be available in a future update.');
     } catch (error) {
       console.error('Error getting hint:', error);
       setHint('The Oracle is silent at this moment. Perhaps try again later.');
@@ -137,9 +154,25 @@ export function PuzzleClient({ puzzle }: PuzzleClientProps) {
         </div>
         {feedback && (
           <Alert variant={feedback.type === 'success' ? 'default' : 'destructive'} className="mt-6 bg-opacity-20">
-            {feedback.type === 'success' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-            <AlertTitle>{feedback.type === 'success' ? 'Success!' : 'Incorrect'}</AlertTitle>
-            <AlertDescription>{feedback.message}</AlertDescription>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex gap-2">
+                {feedback.type === 'success' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
+                <div>
+                  <AlertTitle>{feedback.type === 'success' ? 'Success!' : 'Incorrect'}</AlertTitle>
+                  <AlertDescription>{feedback.message}</AlertDescription>
+                </div>
+              </div>
+              {onNextQuestion && (
+                <Button 
+                  onClick={handleNextQuestion}
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0"
+                >
+                  Next Question →
+                </Button>
+              )}
+            </div>
           </Alert>
         )}
       </CardContent>

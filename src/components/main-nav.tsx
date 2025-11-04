@@ -1,7 +1,4 @@
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Icons } from '@/components/icons';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
@@ -18,7 +15,8 @@ const navItems = [
 ];
 
 export function MainNav() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <SidebarMenu>
@@ -33,7 +31,7 @@ export function MainNav() {
               tooltip={{ children: item.label }}
               className="justify-start"
             >
-              <Link href={item.href}>
+              <Link to={item.href}>
                 <Icon className="h-5 w-5" />
                 <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
               </Link>

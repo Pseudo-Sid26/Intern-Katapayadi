@@ -19,6 +19,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -37,9 +38,26 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# genkit
 .genkit/*
+
+# Environment variables
 .env*
+!.env.example
 
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Backend data and cache
+backend/data/embeddings-cache.json
+backend/data/processed-documents.json
+backend/data/*.cache
+backend/data/*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
